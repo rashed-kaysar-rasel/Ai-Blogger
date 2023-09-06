@@ -106,6 +106,27 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    {{-- Log Out script --}}
+    <script>
+        function logout() {
+            // Create a form element
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{{ route('logout') }}";
+    
+            // Add a CSRF token to the form
+            var csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = "{{ csrf_token() }}";
+    
+            // Append the form to the body and submit it
+            form.appendChild(csrfToken);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+    {{-- End Logout sctipt --}}
 </body>
 <!--end::Body-->
 

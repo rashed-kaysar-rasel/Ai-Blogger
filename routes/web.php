@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing-page');
-});
+})->name('home');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::controller(AdminDashboardController::class)->group(function () {

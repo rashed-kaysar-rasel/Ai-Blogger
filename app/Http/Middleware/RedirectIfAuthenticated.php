@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
 
 class RedirectIfAuthenticated
@@ -21,7 +22,17 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                
+                $user = Auth::user();
+
+                $adminRole = Role::where('slug', 'admin')->first();
+                $userRoles = $user->roles;
+        
+                if ($userRoles->contains($adminRole)) {
+                    return redirect(route('admin.dashboard'));
+                }else{
+                    return redirect(route('user.dashboard'));
+                }
             }
         }
 
