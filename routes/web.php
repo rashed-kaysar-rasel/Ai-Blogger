@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\AIController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,9 @@ Route::get('/', function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::controller(AdminDashboardController::class)->group(function () {
         Route::get('dashboard','index')->name('admin.dashboard');
+    });
+    Route::controller(AIController::class)->group(function () {
+        Route::get('test-integration','testIntegration')->name('test.integration');
     });
 });
 
