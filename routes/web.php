@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDashboardController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AIController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AIWriterController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     });
     Route::controller(AIController::class)->group(function () {
         Route::get('test-integration','testIntegration')->name('test.integration');
+    });
+
+    Route::controller(AIWriterController::class)->group(function () {
+        Route::get('article-writer','articleWriter')->name('article.writer');
     });
 });
 
