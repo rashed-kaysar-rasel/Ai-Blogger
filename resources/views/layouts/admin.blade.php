@@ -20,7 +20,7 @@ License: For each use you must have a valid license purchased only from above li
         content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -28,6 +28,10 @@ License: For each use you must have a valid license purchased only from above li
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -104,6 +108,10 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
+
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Page Custom Javascript(used by this page)-->
+    <script src="{{ asset('assets/js/custom/modals/new-address.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
     {{-- Log Out script --}}
@@ -113,13 +121,13 @@ License: For each use you must have a valid license purchased only from above li
             var form = document.createElement('form');
             form.method = 'POST';
             form.action = "{{ route('logout') }}";
-    
+
             // Add a CSRF token to the form
             var csrfToken = document.createElement('input');
             csrfToken.type = 'hidden';
             csrfToken.name = '_token';
             csrfToken.value = "{{ csrf_token() }}";
-    
+
             // Append the form to the body and submit it
             form.appendChild(csrfToken);
             document.body.appendChild(form);
@@ -127,6 +135,8 @@ License: For each use you must have a valid license purchased only from above li
         }
     </script>
     {{-- End Logout sctipt --}}
+
+    @yield('script')
 </body>
 <!--end::Body-->
 
