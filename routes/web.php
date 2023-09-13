@@ -21,12 +21,17 @@ Route::get('/', function () {
     return view('landing-page');
 })->name('home');
 
+
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
     Route::controller(AdminDashboardController::class)->group(function () {
         Route::get('dashboard','index')->name('admin.dashboard');
+        Route::get('stream-data','streamData')->name('stream');
     });
     Route::controller(AIController::class)->group(function () {
         Route::get('test-integration','testIntegration')->name('test.integration');
+        Route::get('stream-text','streamTextOutput')->name('stream.text.output');
     });
 
     Route::controller(AIWriterController::class)->group(function () {

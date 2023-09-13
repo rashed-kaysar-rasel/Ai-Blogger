@@ -12,14 +12,16 @@
                     <div class="mx-auto w-100">
                         <!-- begin::Header-->
                         <div class="d-flex justify-content-between flex-column flex-sm-row">
-                            <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">AI Writer</h4>
+                            <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">AI Article Writer</h4>
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
                         <div class="pb-12 row">
                             <div class="col-lg-6">
                                 <!--begin::Form-->
-                                <form class="form" action="#" id="kt_modal_new_address_form">
+                                <form class="form" id="articleGeneratorForm">
+                                    @csrf
+                                    <input name="post_type" value="article_generator" hidden>
                                     <!--begin::Col-->
                                     <div class="d-flex flex-column mb-5 fv-row">
                                         <!--begin::Label-->
@@ -101,7 +103,7 @@
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input type="text" class="form-control form-control-solid" placeholder=""
-                                                name="first-name" />
+                                                name="maximum_length" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
@@ -112,7 +114,7 @@
                                             <!--end::Label-->
                                             <!--end::Input-->
                                             <input type="text" class="form-control form-control-solid" placeholder=""
-                                                name="last-name" />
+                                                name="number_of_results" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
@@ -183,9 +185,10 @@
                                 </form>
                                 <!--end::Form-->
                             </div>
-                                {{-- Output --}}
-                            <div  class="col-lg-6">  <label class="fs-5 fw-bold mb-2">Generated Article</label>
-                                <textarea class="h-100 form-control form-control-solid" rows="5"> </textarea> 
+                            {{-- Output --}}
+                            <div class="col-lg-6"> <label class="fs-5 fw-bold mb-2">Generated Article</label>
+                                <div id="streamedData" class="h-100 form-control form-control-solid" rows="5">
+                                </div>
                             </div>
                         </div>
                         <!--end::Body-->
@@ -200,10 +203,54 @@
     </div>
     <!--end::Post-->
 @endsection
-@section('scripts')
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote();
-    });
-  </script>
+@section('script')
+    <!-- JavaScript to handle form submission and streaming -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const streamForm = document.getElementById('articleGeneratorForm');
+            const streamedDataDiv = document.getElementById('streamedData');
+
+            streamForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get all form inputs and create an object to store their values
+                const formData = {};
+                const formInputs = streamForm.querySelectorAll('input');
+                const formSelect= streamForm.querySelectorAll('select');
+
+                formInputs.forEach(input => {
+                    formData[input.name] = input.value;
+                });
+                formSelect.forEach(select => {
+                    formData[select.name] = select.value;
+                });
+
+                // Clear the streamed data container
+                streamedDataDiv.innerHTML = '';
+
+                // Construct the URL with query parameters
+                const queryParams = Object.entries(formData)
+                    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                    .join('&');
+
+                const url = `/admin/stream-text?${queryParams}`;
+
+                // Start streaming using the constructed URL
+                const eventSource = new EventSource(url);
+
+                eventSource.onmessage = function(event) {
+                    // const data = event.data;
+                    const data = event.data.replace(/\n/g, ''); // Remove \n characters
+
+                    streamedDataDiv.innerHTML += `${data}`;
+                };
+
+                eventSource.onerror = function(event) {
+                    eventSource.close();
+                };
+
+
+            });
+        });
+    </script>
 @endsection
