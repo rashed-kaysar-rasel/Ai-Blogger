@@ -1,3 +1,6 @@
+@php
+    $routeName = Route::currentRouteName();
+@endphp
 <!--begin::Header-->
 <div id="kt_header" style="" class="header align-items-stretch">
     <!--begin::Container-->
@@ -7,8 +10,8 @@
             <div class="btn btn-icon btn-active-light-primary" id="kt_aside_mobile_toggle">
                 <!--begin::Svg Icon | path: icons/duotone/Text/Menu.svg-->
                 <span class="svg-icon svg-icon-2x mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                        height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24" />
                             <rect fill="#000000" x="4" y="5" width="16" height="3"
@@ -26,7 +29,7 @@
         <!--begin::Mobile logo-->
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="#" class="d-lg-none">
-                <img alt="Logo" src="{{asset('assets/media/logos/logo-3.svg')}}" class="h-30px" />
+                <img alt="Logo" src="{{ asset('assets/media/logos/logo-3.svg') }}" class="h-30px" />
             </a>
         </div>
         <!--end::Mobile logo-->
@@ -35,38 +38,46 @@
             <!--begin::Navbar-->
             <div class="d-flex align-items-stretch" id="kt_header_nav">
                 <!--begin::Menu wrapper-->
-                <div class="header-menu align-items-stretch" data-kt-drawer="true"
-                    data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}"
-                    data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}"
-                    data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle"
-                    data-kt-place="true" data-kt-place-mode="prepend"
-                    data-kt-place-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
+                <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu"
+                    data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
+                    data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="end"
+                    data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-place="true"
+                    data-kt-place-mode="prepend" data-kt-place-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
                     <!--begin::Menu-->
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
                         <div class="menu-item me-lg-1">
-                            <a class="menu-link active py-3" href="#">
+                            <a class="menu-link @if ($routeName == 'admin.dashboard') active @endif py-3"
+                                href="{{ route('admin.dashboard') }}">
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </div>
-
+                        @if ($routeName == 'article.writer' || $routeName == 'post.title.generator' || $routeName == 'email.generator')
+                            @php
+                                $aiWriterMenue = 'active';
+                            @endphp
+                        @else
+                            @php
+                                $aiWriterMenue = '';
+                            @endphp
+                        @endif
                         <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
                             class="menu-item menu-lg-down-accordion me-lg-1">
-                            <span class="menu-link py-3">
-                                <span class="menu-title">Resources</span>
+                            <span class="menu-link {{ $aiWriterMenue }} py-3">
+                                <span class="menu-title">AI Writer</span>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
                             <div
                                 class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                 <div class="menu-item">
-                                    <a class="menu-link py-3" href="documentation/base/utilities.html">
+                                    <a class="menu-link @if ($routeName == 'article.writer') active @endif py-3"
+                                        href="{{ route('article.writer') }}">
                                         <span class="menu-icon">
                                             <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-arrange.svg-->
                                             <span class="svg-icon svg-icon-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    width="24px" height="24px" viewBox="0 0 24 24"
-                                                    version="1.1">
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                    height="24px" viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none"
                                                         fill-rule="evenodd">
                                                         <rect x="0" y="0" width="24"
@@ -82,18 +93,18 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                         </span>
-                                        <span class="menu-title">Components</span>
+                                        <span class="menu-title">Article Writer</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link py-3" href="documentation/getting-started.html">
+                                    <a class="menu-link @if ($routeName == 'post.title.generator') active @endif py-3"
+                                        href="{{ route('post.title.generator') }}">
                                         <span class="menu-icon">
                                             <!--begin::Svg Icon | path: icons/duotone/Home/Library.svg-->
                                             <span class="svg-icon svg-icon-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    width="24px" height="24px" viewBox="0 0 24 24"
-                                                    version="1.1">
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                    height="24px" viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none"
                                                         fill-rule="evenodd">
                                                         <rect x="0" y="0" width="24"
@@ -110,17 +121,17 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                         </span>
-                                        <span class="menu-title">Documentation</span>
+                                        <span class="menu-title">Post Title Generator</span>
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link py-3"
-                                        href="https://preview.keenthemes.com/metronic8/demo1/layout-builder.html">
+                                    <a class="menu-link @if ($routeName == 'email.generator') active @endif py-3"
+                                        href="{{ route('email.generator') }}">
                                         <span class="menu-icon">
                                             <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
                                             <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none">
                                                     <path opacity="0.25"
                                                         d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z"
                                                         fill="#12131A" />
@@ -137,38 +148,7 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                         </span>
-                                        <span class="menu-title">Layout Builder</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link py-3"
-                                        href="documentation/getting-started/changelog.html">
-                                        <span class="menu-icon">
-                                            <!--begin::Svg Icon | path: icons/duotone/Files/File.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    width="24px" height="24px" viewBox="0 0 24 24"
-                                                    version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none"
-                                                        fill-rule="evenodd">
-                                                        <polygon points="0 0 24 0 24 24 0 24" />
-                                                        <path
-                                                            d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
-                                                            fill="#000000" fill-rule="nonzero"
-                                                            opacity="0.3" />
-                                                        <rect fill="#000000" x="6" y="11"
-                                                            width="9" height="2"
-                                                            rx="1" />
-                                                        <rect fill="#000000" x="6" y="15"
-                                                            width="5" height="2"
-                                                            rx="1" />
-                                                    </g>
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                        </span>
-                                        <span class="menu-title">Changelog v8.0.9</span>
+                                        <span class="menu-title">Email Writer</span>
                                     </a>
                                 </div>
                             </div>
@@ -187,9 +167,9 @@
                     <!--begin::User-->
                     <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                         <!--begin::Menu wrapper-->
-                        <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
-                            data-kt-menu-trigger="click" data-kt-menu-attach="parent"
-                            data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                        <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
+                            data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end"
+                            data-kt-menu-flip="bottom">
                             <img src="{{ asset('assets/media/avatars/150-2.jpg') }}" alt="metronic" />
                         </div>
                         <!--begin::Menu-->
@@ -200,7 +180,7 @@
                                 <div class="menu-content d-flex align-items-center px-3">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img alt="Logo" src="{{asset('assets/media/avatars/150-2.jpg')}}" />
+                                        <img alt="Logo" src="{{ asset('assets/media/avatars/150-2.jpg') }}" />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
@@ -228,8 +208,7 @@
                                 <a href="pages/projects/list.html" class="menu-link px-5">
                                     <span class="menu-text">My Projects</span>
                                     <span class="menu-badge">
-                                        <span
-                                            class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
+                                        <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
                                     </span>
                                 </a>
                             </div>
@@ -245,8 +224,7 @@
                                 <div class="menu-sub menu-sub-dropdown w-175px py-4">
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
-                                        <a href="account/referrals.html"
-                                            class="menu-link px-5">Referrals</a>
+                                        <a href="account/referrals.html" class="menu-link px-5">Referrals</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
@@ -256,16 +234,14 @@
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
-                                        <a href="account/statements.html"
-                                            class="menu-link px-5">Payments</a>
+                                        <a href="account/statements.html" class="menu-link px-5">Payments</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
                                         <a href="account/statements.html"
                                             class="menu-link d-flex flex-stack px-5">Statements
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                data-bs-toggle="tooltip"
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                                 title="View your statements"></i></a>
                                     </div>
                                     <!--end::Menu item-->
@@ -275,13 +251,10 @@
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
                                         <div class="menu-content px-3">
-                                            <label
-                                                class="form-check form-switch form-check-custom form-check-solid">
-                                                <input class="form-check-input w-30px h-20px"
-                                                    type="checkbox" value="1" checked="checked"
-                                                    name="notifications" />
-                                                <span
-                                                    class="form-check-label text-muted fs-7">Notifications</span>
+                                            <label class="form-check form-switch form-check-custom form-check-solid">
+                                                <input class="form-check-input w-30px h-20px" type="checkbox"
+                                                    value="1" checked="checked" name="notifications" />
+                                                <span class="form-check-label text-muted fs-7">Notifications</span>
                                             </label>
                                         </div>
                                     </div>
@@ -301,8 +274,9 @@
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                
-                                <a href="#" class="menu-link px-5" onclick="logout(); return false;">Sign Out</a>
+
+                                <a href="#" class="menu-link px-5" onclick="logout(); return false;">Sign
+                                    Out</a>
 
                             </div>
                             <!--end::Menu item-->
@@ -313,17 +287,13 @@
                     <!--end::User -->
                     <!--begin::Heaeder menu toggle-->
                     <div class="d-flex align-items-center d-lg-none ms-2 me-n3" title="Show header menu">
-                        <div class="btn btn-icon btn-active-light-primary"
-                            id="kt_header_menu_mobile_toggle">
+                        <div class="btn btn-icon btn-active-light-primary" id="kt_header_menu_mobile_toggle">
                             <!--begin::Svg Icon | path: icons/duotone/Text/Toggle-Right.svg-->
                             <span class="svg-icon svg-icon-1">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                    height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none"
-                                        fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24"
-                                            height="24" />
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24" />
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M22 11.5C22 12.3284 21.3284 13 20.5 13H3.5C2.6716 13 2 12.3284 2 11.5C2 10.6716 2.6716 10 3.5 10H20.5C21.3284 10 22 10.6716 22 11.5Z"
                                             fill="black" />

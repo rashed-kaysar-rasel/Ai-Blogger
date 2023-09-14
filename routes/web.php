@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin', 'page.metadata'])->prefix('admin')->group(function () {
 
     Route::controller(AdminDashboardController::class)->group(function () {
         Route::get('dashboard','index')->name('admin.dashboard');
