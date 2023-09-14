@@ -12,7 +12,7 @@
                     <div class="mx-auto w-100">
                         <!-- begin::Header-->
                         <div class="d-flex justify-content-between flex-column flex-sm-row">
-                            <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">AI Article Writer</h4>
+                            <h4 class="fw-boldest text-gray-800 fs-2qx pe-5 pb-7">Email Generator</h4>
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
@@ -25,11 +25,20 @@
                                     <!--begin::Col-->
                                     <div class="d-flex flex-column mb-5 fv-row">
                                         <!--begin::Label-->
-                                        <label class="required fs-5 fw-bold mb-2">Article Title</label>
+                                        <label class="required fs-5 fw-bold mb-2">Description</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <textarea type="text" class="form-control form-control-solid"
+                                            placeholder="Description" name="description" required rows="3"></textarea>
+                                        <!--end::Input-->
+                                    </div>
+                                    <div class="d-flex flex-column mb-5 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-5 fw-bold mb-2">Subject</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="text" class="form-control form-control-solid"
-                                            placeholder="Article Title" name="article_title" required/>
+                                            placeholder="Subject" name="subject" required />
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

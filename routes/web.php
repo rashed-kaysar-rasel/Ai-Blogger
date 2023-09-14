@@ -36,6 +36,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::controller(AIWriterController::class)->group(function () {
         Route::get('article-writer','articleWriter')->name('article.writer');
+        Route::get('post-title-generator','postTitleGenerator')->name('post.title.generator');
+        Route::get('email-generator','emailGenerator')->name('email.generator');
     });
 });
 

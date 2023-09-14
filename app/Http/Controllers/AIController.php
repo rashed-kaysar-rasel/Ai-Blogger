@@ -28,7 +28,6 @@ class AIController extends Controller
         $post_type = $request->post_type;
 
         //SETTINGS
-        $number_of_results = $request->number_of_results;
         $maximum_length = $request->maximum_length;
         $creativity = $request->creativity;
         $language = $request->language;
@@ -39,7 +38,26 @@ class AIController extends Controller
             $article_title = $request->article_title;
             $focus_keywords = $request->focus_keywords;
             $prompt = "Generate article about $article_title. Focus on $focus_keywords.
-                     Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Generate $number_of_results different articles. Tone of voice must be $tone_of_voice";
+                     Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Tone of voice must be $tone_of_voice";
+        }
+
+        //POST TITLE GENERATOR
+        if ($post_type == 'post_title_generator') {
+            $description = $request->description;
+            $focus_keywords = $request->focus_keywords;
+            $prompt = "Generate engaging and click-worthy post titles on $description. Also Focus on $focus_keywords. And Language is $language.";
+        }
+
+        // EMAIL GENERATOR
+        if ($post_type == 'email_generator') {
+            $subject = $request->subject;
+            $description = $request->description;
+
+            $prompt = "Write email about subject:
+                    $subject, description:
+                    $description.
+                    Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Tone of voice must be $tone_of_voice
+                    ";
         }
 
 
@@ -52,7 +70,7 @@ class AIController extends Controller
         // ]);
 
 
-        $response = new StreamedResponse(function () use ($prompt, $creativity, $maximum_length, $number_of_results) {
+        $response = new StreamedResponse(function () use ($prompt, $creativity, $maximum_length) {
 
             $total_used_tokens = 0;
             $output = "";
@@ -64,7 +82,6 @@ class AIController extends Controller
                     'prompt' => $prompt,
                     'temperature' => (int)$creativity,
                     'max_tokens' => (int)$maximum_length,
-                    'n' => (int)$number_of_results
                 ]);
             } catch (\Exception $e) {
                 $messageError = 'Error from API call. Please try again. If error persists again please contact system administrator with this message ' . $e->getMessage();
@@ -80,26 +97,23 @@ class AIController extends Controller
             }
             foreach ($stream as $streamResponse) {
 
-                    if (isset($streamResponse->choices[0]->text)) {
-                        $message = $streamResponse->choices[0]->text;
-                        $messageFix = str_replace(["\r\n", "\r", "\n"], "<br/>", $message);
-                        $output .= $messageFix;
-                        $responsedText .= $message;
+                if (isset($streamResponse->choices[0]->text)) {
+                    $message = $streamResponse->choices[0]->text;
+                    $messageFix = str_replace(["\r\n", "\r", "\n"], "<br/>", $message);
+                    $output .= $messageFix;
+                    $responsedText .= $message;
 
-                        $string_length = Str::length($messageFix);
-                        $needChars = 6000 - $string_length;
-                        $random_text = Str::random($needChars);
-
-
-                        echo 'data: ' . $messageFix . "\n\n";
-                        ob_flush();
-                        flush();
-                        usleep(500);
-                    }
+                    $string_length = Str::length($messageFix);
+                    $needChars = 6000 - $string_length;
+                    $random_text = Str::random($needChars);
 
 
+                    echo 'data: ' . $messageFix . "\n\n";
+                    ob_flush();
+                    flush();
+                    usleep(500);
+                }
             }
-            
         });
 
 

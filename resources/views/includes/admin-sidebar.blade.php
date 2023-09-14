@@ -1,3 +1,6 @@
+    @php
+        $routeName = Route::currentRouteName();
+    @endphp
     <!--begin::Aside-->
     <div id="kt_aside" class="aside aside-light aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside"
         data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
@@ -47,7 +50,8 @@
                 <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                     id="#kt_aside_menu" data-kt-menu="true">
                     <div class="menu-item">
-                        <a class="menu-link active" href="{{ route('admin.dashboard')}}">
+                        <a class="menu-link @if ($routeName == 'admin.dashboard') active @endif"
+                            href="{{ route('admin.dashboard') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotone/Design/PenAndRuller.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -88,12 +92,12 @@
                         </div>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link" href="{{ route('admin.dashboard')}}">
+                        <a class="menu-link" href="{{ route('admin.dashboard') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/File.svg-->
-                                <span class="svg-icon svg-icon-2"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                        viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <polygon points="0 0 24 0 24 24 0 24" />
                                             <path
@@ -110,8 +114,18 @@
                             <span class="menu-title">Documents</span>
                         </a>
                     </div>
+                    
+                    @if ($routeName == 'article.writer' || $routeName == 'post.title.generator' || $routeName == 'email.generator')
+                        @php
+                            $show = 'show';
+                        @endphp
+                    @else
+                        @php
+                            $show = '';
+                        @endphp
+                    @endif
 
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ $show }}">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotone/Code/Compiling.svg-->
@@ -133,7 +147,8 @@
                         </span>
                         <div class="menu-sub menu-sub-accordion menu-active-bg">
                             <div class="menu-item">
-                                <a href="{{ route('article.writer') }}" class="menu-link">
+                                <a href="{{ route('article.writer') }}"
+                                    class="menu-link @if ($routeName == 'article.writer') active @endif">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -141,20 +156,22 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <span class="menu-link">
+                                <a href="{{ route('post.title.generator') }}"
+                                    class="menu-link @if ($routeName == 'post.title.generator') active @endif">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">Post Title Generator</span>
-                                </span>
+                                </a>
                             </div>
                             <div class="menu-item">
-                                <span class="menu-link">
+                                <a href="{{ route('email.generator') }}"
+                                    class="menu-link @if ($routeName == 'email.generator') active @endif">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">Email Writer</span>
-                                </span>
+                                </a>
                             </div>
                         </div>
                     </div>
