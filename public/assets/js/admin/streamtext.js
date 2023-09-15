@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     streamForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
+        var indicator = document.querySelector(".indicator-progress");
+        var indicatorLlabel = document.querySelector(".indicator-label");
+
+        indicator.style.display = "block";
+        indicatorLlabel.style.display = "none"; 
+
+
         // Get all form inputs and create an object to store their values
         const formData = {};
         const formInputs = streamForm.querySelectorAll('input');
@@ -40,9 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             streamedDataDiv.innerHTML += `${data}`;
         };
-
+        
         eventSource.onerror = function (event) {
             eventSource.close();
+            indicator.style.display = "none";
+            indicatorLlabel.style.display = "block"; 
         };
 
 
