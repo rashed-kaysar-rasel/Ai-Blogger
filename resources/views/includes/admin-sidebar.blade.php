@@ -114,7 +114,7 @@
                             <span class="menu-title">Documents</span>
                         </a>
                     </div>
-                    
+
                     @if ($routeName == 'article.writer' || $routeName == 'post.title.generator' || $routeName == 'email.generator')
                         @php
                             $show = 'show';
@@ -183,29 +183,50 @@
                             <div class="separator mx-1 my-4"></div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <a class="menu-link" href="documentation/getting-started/changelog.html">
+
+
+                    @if ($routeName == 'openai.settings')
+                        @php
+                            $show = 'show';
+                        @endphp
+                    @else
+                        @php
+                            $show = '';
+                        @endphp
+                    @endif
+
+                    <div  data-kt-menu-trigger="click" class="menu-item menu-accordion {{ $show }}">
+                        <span class="menu-link" href="documentation/getting-started/changelog.html">
                             <span class="menu-icon">
-                                <!--begin::Svg Icon | path: icons/duotone/Files/File.svg-->
-                                <span class="svg-icon svg-icon-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+
+                                <!--begin::Svg Icon | path: assets/media/icons/duotone/General/Settings-2.svg-->
+                                <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                        viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                            <rect x="0" y="0" width="24" height="24" />
                                             <path
-                                                d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
-                                                fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                            <rect fill="#000000" x="6" y="11" width="9"
-                                                height="2" rx="1" />
-                                            <rect fill="#000000" x="6" y="15" width="5"
-                                                height="2" rx="1" />
+                                                d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z"
+                                                fill="#000000" />
                                         </g>
-                                    </svg>
-                                </span>
+                                    </svg></span>
                                 <!--end::Svg Icon-->
+
                             </span>
-                            <span class="menu-title">Changelog v8.0.9</span>
-                        </a>
+                            <span class="menu-title">Settings</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item">
+                                <a href="{{ route('openai.settings') }}"
+                                    class="menu-link @if ($routeName == 'openai.settings') active @endif">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">OpenAI Settings</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!--end::Menu-->
