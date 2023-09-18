@@ -5,7 +5,8 @@ use App\Http\Controllers\AIController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AIWriterController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\OpenAiSettingController;
+use App\Http\Controllers\Admin\ArticleCreationScheduleController;
+use App\Http\Controllers\Admin\OpenAiSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,9 @@ Route::middleware(['auth', 'admin', 'page.metadata'])->prefix('admin')->group(fu
     Route::controller(OpenAiSettingController::class)->group(function (){
         Route::get('openai-settings','index')->name('openai.settings');
         Route::post('update-openai-settings/{openAISetting}','update')->name('update.openai.settings');
+    });
+    Route::controller(ArticleCreationScheduleController::class)->group(function (){
+        Route::get('article-schedules','index')->name('article.schedules');
     });
 });
 

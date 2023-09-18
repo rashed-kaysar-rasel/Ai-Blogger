@@ -73,24 +73,17 @@
                                     <a class="menu-link @if ($routeName == 'article.writer') active @endif py-3"
                                         href="{{ route('article.writer') }}">
                                         <span class="menu-icon">
-                                            <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-arrange.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                    height="24px" viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none"
-                                                        fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24"
-                                                            height="24" />
-                                                        <path
-                                                            d="M5.5,4 L9.5,4 C10.3284271,4 11,4.67157288 11,5.5 L11,6.5 C11,7.32842712 10.3284271,8 9.5,8 L5.5,8 C4.67157288,8 4,7.32842712 4,6.5 L4,5.5 C4,4.67157288 4.67157288,4 5.5,4 Z M14.5,16 L18.5,16 C19.3284271,16 20,16.6715729 20,17.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,17.5 C13,16.6715729 13.6715729,16 14.5,16 Z"
-                                                            fill="#000000" />
-                                                        <path
-                                                            d="M5.5,10 L9.5,10 C10.3284271,10 11,10.6715729 11,11.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,12.5 C20,13.3284271 19.3284271,14 18.5,14 L14.5,14 C13.6715729,14 13,13.3284271 13,12.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z"
-                                                            fill="#000000" opacity="0.3" />
-                                                    </g>
-                                                </svg>
-                                            </span>
+
+                                            <!--begin::Svg Icon | path: assets/media/icons/duotone/Design/PenAndRuller.svg-->
+                                            <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <path
+                                                        d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
+                                                        fill="#000000" opacity="0.3" />
+                                                    <path
+                                                        d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
+                                                        fill="#000000" />
+                                                </svg></span>
                                             <!--end::Svg Icon-->
                                         </span>
                                         <span class="menu-title">Article Writer</span>
@@ -100,25 +93,25 @@
                                     <a class="menu-link @if ($routeName == 'post.title.generator') active @endif py-3"
                                         href="{{ route('post.title.generator') }}">
                                         <span class="menu-icon">
-                                            <!--begin::Svg Icon | path: icons/duotone/Home/Library.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                            <!--begin::Svg Icon | path: assets/media/icons/duotone/Design/Anchor-center-down.svg-->
+                                            <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                                                     height="24px" viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none"
                                                         fill-rule="evenodd">
                                                         <rect x="0" y="0" width="24"
                                                             height="24" />
-                                                        <path
-                                                            d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
-                                                            fill="#000000" />
-                                                        <rect fill="#000000" opacity="0.3"
-                                                            transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
-                                                            x="16.3255682" y="2.94551858" width="3"
-                                                            height="18" rx="1" />
+                                                        <circle fill="#000000" opacity="0.3" cx="12"
+                                                            cy="19" r="3" />
+                                                        <g transform="translate(4.000000, 2.000000)">
+                                                            <rect x="0" y="0" width="16"
+                                                                height="16" />
+                                                            <path
+                                                                d="M9,5 L9,12 C9,12.5522847 8.55228475,13 8,13 L8,13 C7.44771525,13 7,12.5522847 7,12 L7,5 L5,5 C4.44771525,5 4,4.55228475 4,4 L4,4 C4,3.44771525 4.44771525,3 5,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,4 C12,4.55228475 11.5522847,5 11,5 L9,5 Z"
+                                                                fill="#000000" />
+                                                        </g>
                                                     </g>
-                                                </svg>
-                                            </span>
+                                                </svg></span>
                                             <!--end::Svg Icon-->
                                         </span>
                                         <span class="menu-title">Post Title Generator</span>
@@ -128,24 +121,14 @@
                                     <a class="menu-link @if ($routeName == 'email.generator') active @endif py-3"
                                         href="{{ route('email.generator') }}">
                                         <span class="menu-icon">
-                                            <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none">
-                                                    <path opacity="0.25"
-                                                        d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z"
-                                                        fill="#12131A" />
+                                            <!--begin::Svg Icon | path: assets/media/icons/duotone/Communication/Mail.svg-->
+                                            <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    width="24px" height="24px" viewBox="0 0 24 24"
+                                                    version="1.1">
                                                     <path
-                                                        d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z"
-                                                        fill="#12131A" />
-                                                    <path opacity="0.25"
-                                                        d="M2 17.5C2 15.0147 4.01472 13 6.5 13H17.5C19.9853 13 22 15.0147 22 17.5V17.5C22 19.9853 19.9853 22 17.5 22H6.5C4.01472 22 2 19.9853 2 17.5V17.5Z"
-                                                        fill="#12131A" />
-                                                    <path
-                                                        d="M9 17.5C9 18.8807 7.88071 20 6.5 20C5.11929 20 4 18.8807 4 17.5C4 16.1193 5.11929 15 6.5 15C7.88071 15 9 16.1193 9 17.5Z"
-                                                        fill="#12131A" />
-                                                </svg>
-                                            </span>
+                                                        d="M5,6 L19,6 C20.1045695,6 21,6.8954305 21,8 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,8 C3,6.8954305 3.8954305,6 5,6 Z M18.1444251,7.83964668 L12,11.1481833 L5.85557487,7.83964668 C5.4908718,7.6432681 5.03602525,7.77972206 4.83964668,8.14442513 C4.6432681,8.5091282 4.77972206,8.96397475 5.14442513,9.16035332 L11.6444251,12.6603533 C11.8664074,12.7798822 12.1335926,12.7798822 12.3555749,12.6603533 L18.8555749,9.16035332 C19.2202779,8.96397475 19.3567319,8.5091282 19.1603533,8.14442513 C18.9639747,7.77972206 18.5091282,7.6432681 18.1444251,7.83964668 Z"
+                                                        fill="#000000" />
+                                                </svg></span>
                                             <!--end::Svg Icon-->
                                         </span>
                                         <span class="menu-title">Email Writer</span>

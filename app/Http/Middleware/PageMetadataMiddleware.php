@@ -42,6 +42,10 @@ class PageMetadataMiddleware
                 $pageName = 'OpenAI Settings';
                 $breadcrumbs =  ['Dashboard' => route('admin.dashboard')];
                 break;
+            case 'article.schedules':
+                $pageName = 'Article Schedules';
+                $breadcrumbs =  ['Dashboard' => route('admin.dashboard')];
+                break;
     
             // Add more cases for other routes as needed
     

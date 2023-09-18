@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\OpenAiSetting;
 use Illuminate\Http\Request;
+use App\Models\OpenAiSetting;
+use App\Http\Controllers\Controller;
 
 class OpenAiSettingController extends Controller
 {
