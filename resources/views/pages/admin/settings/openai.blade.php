@@ -37,20 +37,20 @@
                                         <label class="fs-5 fw-bold mb-2">Default Model</label>
                                         <!--end::Label-->
                                         <!--begin::Select-->
-                                        <select name="tone_of_voice" data-control="select2"
+                                        <select name="defaul_model" data-control="select2"
                                             data-placeholder="Select a Country..." class="form-select form-select-solid">
-                                            <option value="Professional" selected="">Professional</option>
-                                            <option value="Funny">Funny</option>
-                                            <option value="Casual">Casual</option>
-                                            <option value="Excited">Excited</option>
-                                            <option value="Witty">Witty</option>
-                                            <option value="Sarcastic">Sarcastic</option>
-                                            <option value="Feminine">Feminine</option>
-                                            <option value="Masculine">Masculine</option>
-                                            <option value="Bold">Bold</option>
-                                            <option value="Dramatic">Dramatic</option>
-                                            <option value="Grumpy">Grumpy</option>
-                                            <option value="Secretive">Secretive</option>
+                                            <option value="text-davinci-003"
+                                                {{ $openAiSettings->default_model === 'text-davinci-003' ? 'selected' : '' }}>
+                                                Davinci (Expensive Capable)</option>
+                                            <option value="gpt-3.5-turbo"
+                                                {{ $openAiSettings->default_model === 'gpt-3.5-turbo' ? 'selected' : '' }}>
+                                                ChatGPT (Most Expensive Fastest Most Capable)</option>
+                                            <option value="gpt-3.5-turbo-16k"
+                                                {{ $openAiSettings->default_model === 'gpt-3.5-turbo-16k' ? 'selected' : '' }}>
+                                                ChatGTP (3.5-turbo-16k)</option>
+                                            <option value="gpt-4"
+                                                {{ $openAiSettings->default_model === 'gpt-4' ? 'selected' : '' }}>ChatGPT-4
+                                                (Most Expensive Fastest Most Capable)</option>
                                         </select>
                                         <!--end::Select-->
                                     </div>
@@ -61,41 +61,11 @@
                                         <!--begin::Select-->
                                         <select name="language" data-control="select2"
                                             data-placeholder="Select a Country..." class="form-select form-select-solid">
-                                            <option value="ar-AE">Arabic</option>
-                                            <option value="cmn-CN">Chinese (Mandarin)</option>
-                                            <option value="hr-HR">Croatian (Croatia)</option>
-                                            <option value="cs-CZ">Czech (Czech Republic)</option>
-                                            <option value="da-DK">Danish (Denmark)</option>
-                                            <option value="nl-NL">Dutch (Netherlands)</option>
-                                            <option value="en-US" selected="">English (USA)</option>
-                                            <option value="et-EE">Estonian (Estonia)</option>
-                                            <option value="fi-FI">Finnish (Finland)</option>
-                                            <option value="fr-FR">French (France)</option>
-                                            <option value="de-DE">German (Germany)</option>
-                                            <option value="el-GR">Greek (Greece)</option>
-                                            <option value="he-IL">Hebrew (Israel)</option>
-                                            <option value="hi-IN">Hindi (India)</option>
-                                            <option value="hu-HU">Hungarian (Hungary)</option>
-                                            <option value="is-IS">Icelandic (Iceland)</option>
-                                            <option value="id-ID">Indonesian (Indonesia)</option>
-                                            <option value="it-IT">Italian (Italy)</option>
-                                            <option value="ja-JP">Japanese (Japan)</option>
-                                            <option value="kk-KZ">Kazakh (Kazakhistan)</option>
-                                            <option value="ko-KR">Korean (South Korea)</option>
-                                            <option value="lt-LT">Lithuanian (Lithuania)</option>
-                                            <option value="ms-MY">Malay (Malaysia)</option>
-                                            <option value="nb-NO">Norwegian (Norway)</option>
-                                            <option value="pl-PL">Polish (Poland)</option>
-                                            <option value="pt-BR">Portuguese (Brazil)</option>
-                                            <option value="pt-PT">Portuguese (Portugal)</option>
-                                            <option value="ro-RO">Romanian (Romania)</option>
-                                            <option value="ru-RU">Russian (Russia)</option>
-                                            <option value="sl-SI">Slovenian (Slovenia)</option>
-                                            <option value="es-ES">Spanish (Spain)</option>
-                                            <option value="sw-KE">Swahili (Kenya)</option>
-                                            <option value="sv-SE">Swedish (Sweden)</option>
-                                            <option value="tr-TR">Turkish (Turkey)</option>
-                                            <option value="vi-VN">Vietnamese (Vietnam)</option>
+
+                                            @foreach (get_languages() as $value => $level)
+                                                <option value="{{ $value }}" {{ $openAiSettings->default_language === $value ? 'selected' : '' }}>{{ $level }}</option>
+                                            @endforeach
+
                                         </select>
                                         <!--end::Select-->
                                     </div>
@@ -106,10 +76,10 @@
                                         <!--begin::Select-->
                                         <select name="creativity" data-control="select2"
                                             data-placeholder="Select Creativity..." class="form-select form-select-solid">
-                                            <option value="0.25">Economic</option>
-                                            <option value="0.5">Average</option>
-                                            <option value="0.75" selected="">Good</option>
-                                            <option value="1">Premium</option>
+                                            <option value="0.25" {{ $openAiSettings->default_creativity === 0.25 ? 'selected' : '' }}>Economic</option>
+                                            <option value="0.5" {{ $openAiSettings->default_creativity === 0.5 ? 'selected' : '' }}>Average</option>
+                                            <option value="0.75" {{ $openAiSettings->default_creativity === 0.75 ? 'selected' : '' }} >Good</option>
+                                            <option value="1" {{ $openAiSettings->default_creativity === 1.00 ? 'selected' : '' }}>Premium</option>
                                         </select>
                                         <!--end::Select-->
                                     </div>
@@ -120,18 +90,9 @@
                                         <!--begin::Select-->
                                         <select name="tone_of_voice" data-control="select2"
                                             data-placeholder="Select a Country..." class="form-select form-select-solid">
-                                            <option value="Professional" selected="">Professional</option>
-                                            <option value="Funny">Funny</option>
-                                            <option value="Casual">Casual</option>
-                                            <option value="Excited">Excited</option>
-                                            <option value="Witty">Witty</option>
-                                            <option value="Sarcastic">Sarcastic</option>
-                                            <option value="Feminine">Feminine</option>
-                                            <option value="Masculine">Masculine</option>
-                                            <option value="Bold">Bold</option>
-                                            <option value="Dramatic">Dramatic</option>
-                                            <option value="Grumpy">Grumpy</option>
-                                            <option value="Secretive">Secretive</option>
+                                            @foreach (get_voice_tones() as $value => $level)
+                                                <option value="{{ $value }}" {{ $openAiSettings->default_voice_tone === $value ? 'selected' : '' }}>{{ $level }}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Select-->
                                     </div>
@@ -145,7 +106,7 @@
                                             <!--begin::Input-->
                                             <input type="number" class="form-control form-control-solid"
                                                 placeholder="Maximum Length" min="10" max="2000"
-                                                name="maximum_length" value="1000" required />
+                                                name="max_input_length" value="1000" required />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
@@ -157,7 +118,7 @@
                                             <!--begin::Input-->
                                             <input type="number" class="form-control form-control-solid"
                                                 placeholder="Maximum Length" min="10" max="2000"
-                                                name="maximum_length" value="1000" required />
+                                                name="max_output_length" value="1000" required />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
@@ -204,11 +165,17 @@
 
             $.ajax({
                 data: data,
-                url: "{{ route('update.openai.settings') }}",
+                url: "{{ route('update.openai.settings', $openAiSettings->id) }}",
                 type: "POST",
-                dataType : 'json',
+                dataType: 'json',
                 success: function(data) {
-                    
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Settings Successfully Updated',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 },
                 error: function(data) {}
             });

@@ -53,6 +53,16 @@ class OpenAiSettingController extends Controller
      */
     public function update(Request $request, OpenAISetting $openAISetting)
     {
+        $openAISetting->api_key = $request->api_key;
+        $openAISetting->default_model = $request->defaul_model;
+        $openAISetting->default_language = $request->language;
+        $openAISetting->default_voice_tone = $request->tone_of_voice;
+        $openAISetting->default_creativity = $request->creativity;
+        $openAISetting->max_input_length = $request->max_input_length;
+        $openAISetting->max_output_length = $request->max_output_length;
+
+        $openAISetting->update();
+
         return response()->json(['message' => 'Setting successfully updated']);
     }
 

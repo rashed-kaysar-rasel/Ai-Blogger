@@ -42,7 +42,7 @@ Route::middleware(['auth', 'admin', 'page.metadata'])->prefix('admin')->group(fu
     });
     Route::controller(OpenAiSettingController::class)->group(function (){
         Route::get('openai-settings','index')->name('openai.settings');
-        Route::post('update-openai-settings','update')->name('update.openai.settings');
+        Route::post('update-openai-settings/{openAISetting}','update')->name('update.openai.settings');
     });
 });
 
