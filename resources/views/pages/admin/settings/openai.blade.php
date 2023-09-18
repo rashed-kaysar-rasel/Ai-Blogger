@@ -89,7 +89,7 @@
                                         <!--end::Label-->
                                         <!--begin::Select-->
                                         <select name="tone_of_voice" data-control="select2"
-                                            data-placeholder="Select a Country..." class="form-select form-select-solid">
+                                            data-placeholder="Select a Voice Tone..." class="form-select form-select-solid">
                                             @foreach (get_voice_tones() as $value => $level)
                                                 <option value="{{ $value }}" {{ $openAiSettings->default_voice_tone === $value ? 'selected' : '' }}>{{ $level }}</option>
                                             @endforeach

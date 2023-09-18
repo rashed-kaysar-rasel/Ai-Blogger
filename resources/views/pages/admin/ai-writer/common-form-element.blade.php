@@ -9,41 +9,9 @@
                                         <!--begin::Select-->
                                         <select name="language" data-control="select2"
                                             data-placeholder="Select a Country..." class="form-select form-select-solid">
-                                            <option value="ar-AE">Arabic</option>
-                                            <option value="cmn-CN">Chinese (Mandarin)</option>
-                                            <option value="hr-HR">Croatian (Croatia)</option>
-                                            <option value="cs-CZ">Czech (Czech Republic)</option>
-                                            <option value="da-DK">Danish (Denmark)</option>
-                                            <option value="nl-NL">Dutch (Netherlands)</option>
-                                            <option value="en-US" selected="">English (USA)</option>
-                                            <option value="et-EE">Estonian (Estonia)</option>
-                                            <option value="fi-FI">Finnish (Finland)</option>
-                                            <option value="fr-FR">French (France)</option>
-                                            <option value="de-DE">German (Germany)</option>
-                                            <option value="el-GR">Greek (Greece)</option>
-                                            <option value="he-IL">Hebrew (Israel)</option>
-                                            <option value="hi-IN">Hindi (India)</option>
-                                            <option value="hu-HU">Hungarian (Hungary)</option>
-                                            <option value="is-IS">Icelandic (Iceland)</option>
-                                            <option value="id-ID">Indonesian (Indonesia)</option>
-                                            <option value="it-IT">Italian (Italy)</option>
-                                            <option value="ja-JP">Japanese (Japan)</option>
-                                            <option value="kk-KZ">Kazakh (Kazakhistan)</option>
-                                            <option value="ko-KR">Korean (South Korea)</option>
-                                            <option value="lt-LT">Lithuanian (Lithuania)</option>
-                                            <option value="ms-MY">Malay (Malaysia)</option>
-                                            <option value="nb-NO">Norwegian (Norway)</option>
-                                            <option value="pl-PL">Polish (Poland)</option>
-                                            <option value="pt-BR">Portuguese (Brazil)</option>
-                                            <option value="pt-PT">Portuguese (Portugal)</option>
-                                            <option value="ro-RO">Romanian (Romania)</option>
-                                            <option value="ru-RU">Russian (Russia)</option>
-                                            <option value="sl-SI">Slovenian (Slovenia)</option>
-                                            <option value="es-ES">Spanish (Spain)</option>
-                                            <option value="sw-KE">Swahili (Kenya)</option>
-                                            <option value="sv-SE">Swedish (Sweden)</option>
-                                            <option value="tr-TR">Turkish (Turkey)</option>
-                                            <option value="vi-VN">Vietnamese (Vietnam)</option>
+                                            @foreach (get_languages() as $value => $level)
+                                                <option value="{{ $value }}" {{ 'en-US' === $value ? 'selected' : '' }}>{{ $level }}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Select-->
                                     </div>
@@ -56,8 +24,9 @@
                                             <label class="required fs-5 fw-bold mb-2"> Maximum Length </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input type="number" class="form-control form-control-solid" placeholder="Maximum Length" min="10" max="2000"
-                                                name="maximum_length" value="100" required/>
+                                            <input type="number" class="form-control form-control-solid"
+                                                placeholder="Maximum Length" min="10" max="2000"
+                                                name="maximum_length" value="100" required />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
@@ -91,20 +60,13 @@
                                             <!--end::Label-->
                                             <!--begin::Select-->
                                             <select name="tone_of_voice" data-control="select2"
-                                                data-placeholder="Select a Country..."
+                                                data-placeholder="Select a Voice Tone..."
                                                 class="form-select form-select-solid">
-                                                <option value="Professional" selected="">Professional</option>
-                                                <option value="Funny">Funny</option>
-                                                <option value="Casual">Casual</option>
-                                                <option value="Excited">Excited</option>
-                                                <option value="Witty">Witty</option>
-                                                <option value="Sarcastic">Sarcastic</option>
-                                                <option value="Feminine">Feminine</option>
-                                                <option value="Masculine">Masculine</option>
-                                                <option value="Bold">Bold</option>
-                                                <option value="Dramatic">Dramatic</option>
-                                                <option value="Grumpy">Grumpy</option>
-                                                <option value="Secretive">Secretive</option>
+                                                @foreach (get_voice_tones() as $value => $level)
+                                                    <option value="{{ $value }}"
+                                                        {{ 'Professional' === $value ? 'selected' : '' }}>
+                                                        {{ $level }}</option>
+                                                @endforeach
                                             </select>
                                             <!--end::Select-->
                                         </div>

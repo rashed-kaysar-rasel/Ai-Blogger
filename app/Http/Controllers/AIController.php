@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OpenAiSetting;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -10,6 +11,16 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AIController extends Controller
 {
+    protected $settings;
+
+    public function __construct()
+    {
+        //Settings
+        $this->settings = OpenAiSetting::first();
+        config(['openai.api_key' => $this->settings->api_key]);
+    }
+
+
     public function testIntegration()
     {
         try {
@@ -25,6 +36,7 @@ class AIController extends Controller
 
     public function streamTextOutput(Request $request)
     {
+
         $post_type = $request->post_type;
 
         //SETTINGS
@@ -52,11 +64,12 @@ class AIController extends Controller
         if ($post_type == 'email_generator') {
             $subject = $request->subject;
             $description = $request->description;
+            $focus_keywords = $request->focus_keywords;
 
             $prompt = "Write email about subject:
                     $subject, description:
                     $description.
-                    Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Tone of voice must be $tone_of_voice
+                    Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Tone of voice must be $tone_of_voice. Also focus on the key words $focus_keywords;
                     ";
         }
 
