@@ -46,7 +46,8 @@ Route::middleware(['auth', 'admin', 'page.metadata'])->prefix('admin')->group(fu
         Route::post('update-openai-settings/{openAISetting}','update')->name('update.openai.settings');
     });
     Route::controller(ArticleCreationScheduleController::class)->group(function (){
-        Route::get('article-schedules','index')->name('article.schedules');
+        Route::get('article-schedules','index')->name('article.schedules'); 
+        Route::post('create-schedules','store')->name('create.schedules'); 
     });
 });
 

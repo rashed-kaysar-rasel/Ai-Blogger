@@ -14,7 +14,7 @@ class ArticleCreationScheduleController extends Controller
     public function index()
     {
         $schedules = ArticleCreationSchedule::all();
-        return view('pages.admin.article-schedules',compact(['schedules']));
+        return view('pages.admin.article-schedules', compact(['schedules']));
     }
 
     /**
@@ -30,7 +30,18 @@ class ArticleCreationScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ArticleCreationSchedule::create([
+            'topics' => $request->topics,
+            'language' => $request->language,
+            'length' => $request->length,
+            'creativity' => $request->creativity,
+            'voice_tone' => $request->voice_tone,
+            "frequency"=> $request->frequency,
+            "status"=> $request->status,
+        ]);
+        
+        $response = array('error' => 0);
+        return response($response, 200);
     }
 
     /**

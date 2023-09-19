@@ -14,7 +14,7 @@
                     <div class="modal-content">
             
                         <div class="modal-body">
-                            <form class="form" id="promtMakerForm">
+                            <form class="form" id="scheduleForm">
                                 @csrf
                                 <!--begin::Col-->
                                 <div class="d-flex flex-column mb-5 fv-row">
