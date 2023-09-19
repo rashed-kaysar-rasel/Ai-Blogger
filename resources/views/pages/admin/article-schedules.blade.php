@@ -12,113 +12,141 @@
             <div class="modal fade" tabindex="-1" id="kt_modal_1">
                 <div class="modal-dialog">
                     <div class="modal-content">
-            
+
                         <div class="modal-body">
                             <form class="form" id="scheduleForm">
                                 @csrf
-                                <!--begin::Col-->
-                                <div class="d-flex flex-column mb-5 fv-row">
+                                <input class="form-control form-control-solid" value="" name="schedule_id"
+                                    id="schedule_id" hidden />
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-8 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                        <span class="required">Topics (Seperate with Comma)</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                            title="Specify a target priorty"></i>
+                                    </label>
                                     <!--end::Label-->
-                                    <label class="required fs-5 fw-bold mb-2">Topic (Seperate with
-                                        Comma)</label>
-                                    <!--end::Label-->
-                                    <!--end::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                        placeholder="Focus Keywords (Seperate with Comma)" name="focus_keywords" />
-                                    <!--end::Input-->
+                                    <input class="form-control form-control-solid" name="topics" id="topics" required />
                                 </div>
-                                                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-5 fv-row">
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-5 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                        <span class="required">Language</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Select-->
+                                    <select name="language" id="language" data-control="select2"
+                                        data-placeholder="Select a Country..." class="form-select form-select-solid">
+                                        @foreach (get_languages() as $value => $level)
+                                            <option value="{{ $value }}" {{ 'en-US' === $value ? 'selected' : '' }}>
+                                                {{ $level }}</option>
+                                        @endforeach
+                                    </select>
+                                    <!--end::Select-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-5">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Language</span>
-                                        </label>
+                                        <label class="required fs-5 fw-bold mb-2"> Maximum Length </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid"
+                                            placeholder="Maximum Length" min="10" max="2000" name="max_length"
+                                            id="max_length" value="100" required />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-5 fw-bold mb-2">Creativity</label>
                                         <!--end::Label-->
                                         <!--begin::Select-->
-                                        <select name="language" data-control="select2"
-                                            data-placeholder="Select a Country..." class="form-select form-select-solid">
-                                            @foreach (get_languages() as $value => $level)
-                                                <option value="{{ $value }}" {{ 'en-US' === $value ? 'selected' : '' }}>{{ $level }}</option>
+                                        <select name="creativity" name="id" data-control="select2"
+                                            data-placeholder="Select Creativity..." class="form-select form-select-solid">
+                                            <option value="0.25">Economic</option>
+                                            <option value="0.5">Average</option>
+                                            <option value="0.75" selected="">Good</option>
+                                            <option value="1">Premium</option>
+                                        </select>
+                                        <!--end::Select-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-10">
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-5 fw-bold mb-2">Tone of Voice</label>
+                                        <!--end::Label-->
+                                        <!--begin::Select-->
+                                        <select name="voice_tone" data-control="select2"
+                                            data-placeholder="Select a Voice Tone..." class="form-select form-select-solid">
+                                            @foreach (get_voice_tones() as $value => $level)
+                                                <option value="{{ $value }}"
+                                                    {{ 'Professional' === $value ? 'selected' : '' }}>
+                                                    {{ $level }}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Select-->
                                     </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="row mb-5">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="required fs-5 fw-bold mb-2"> Maximum Length </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="number" class="form-control form-control-solid"
-                                                placeholder="Maximum Length" min="10" max="2000"
-                                                name="maximum_length" value="100" required />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-5 fw-bold mb-2">Creativity</label>
-                                            <!--end::Label-->
-                                            <!--begin::Select-->
-                                            <select name="creativity" data-control="select2"
-                                                data-placeholder="Select Creativity..."
-                                                class="form-select form-select-solid">
-                                                <option value="0.25">Economic</option>
-                                                <option value="0.5">Average</option>
-                                                <option value="0.75" selected="">Good</option>
-                                                <option value="1">Premium</option>
-                                            </select>
-                                            <!--end::Select-->
-                                        </div>
-                                        <!--end::Col-->
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-5 fw-bold mb-2">Time Interval (Minutes)</label>
+                                        <!--end::Label-->
+                                        <input class="form-control form-control-solid" type="number" value="5"
+                                            name="interval" id="interval" required />
                                     </div>
-                                    <!--end::Input group-->
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-10">
 
-                                    <!--begin::Input group-->
-                                    <div class="row g-9 mb-10">
-
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-5 fw-bold mb-2">Tone of Voice</label>
-                                            <!--end::Label-->
-                                            <!--begin::Select-->
-                                            <select name="tone_of_voice" data-control="select2"
-                                                data-placeholder="Select a Voice Tone..."
-                                                class="form-select form-select-solid">
-                                                @foreach (get_voice_tones() as $value => $level)
-                                                    <option value="{{ $value }}"
-                                                        {{ 'Professional' === $value ? 'selected' : '' }}>
-                                                        {{ $level }}</option>
-                                                @endforeach
-                                            </select>
-                                            <!--end::Select-->
-                                        </div>
-                                        <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-5 fw-bold mb-2">Status</label>
+                                        <!--end::Label-->
+                                        <!--begin::Select-->
+                                        <select name="status" id="status" class="form-select form-select-solid">
+                                            <option value="1" selected>Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                        <!--end::Select-->
                                     </div>
-                                    <!--end::Input group-->
-                                    <div class="flex-center">
-                                        <!--begin::Button-->
-                                        <button type="submit" id="kt_modal_new_address_submit" class="btn btn-primary">
-                                            <span class="indicator-label">Create</span>
-                                            <span class="indicator-progress">Please wait...
-                                                <span
-                                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        </button>
-                                        <!--end::Button-->
-                                        <!--begin::Button-->
-                                        <button type="reset" id="kt_modal_new_address_cancel"
-                                            class="btn btn-white me-3">Discard</button>
-                                        <!--end::Button-->
-                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <div class="flex-center">
+                                    <!--begin::Button-->
+                                    <button type="submit" id="kt_modal_new_address_submit" class="btn btn-primary">
+                                        <span class="indicator-label">Submit</span>
+                                        <span class="indicator-progress">Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+                                    <!--end::Button-->
+                                    <!--begin::Button-->
+                                    <button type="reset" id="kt_modal_new_address_cancel"
+                                        class="btn btn-white me-3">Discard</button>
+                                    <!--end::Button-->
+                                </div>
                             </form>
                         </div>
-        
+
                     </div>
                 </div>
             </div>
@@ -138,7 +166,7 @@
                         </svg></span>
                     <!--end::Svg Icon-->
                     New Schedule
-                    </button>
+                </button>
             </div>
         </div>
         <!--end::Header-->
@@ -152,7 +180,7 @@
                     <thead>
                         <tr class="fw-bolder text-muted bg-light">
                             <th class="min-w-325px px-2">Topics</th>
-                            <th class="min-w-125px">Frequency</th>
+                            <th class="min-w-125px">Interval</th>
                             <th class="min-w-125px">Length</th>
                             <th class="min-w-150px">Status</th>
                             <th class="min-w-150px">Actions</th>
@@ -164,20 +192,20 @@
                         @foreach ($schedules as $item)
                             <tr>
                                 <td>
-                                        @php
-                                            $topic = json_decode($item->topics,true);
-                                            for ($i=0; $i < count($topic); $i++) { 
-                                                echo "<span class='badge badge-light-dark fs-7 fw-bold mx-2'>".$topic[$i]."</span>";
-                                            }
-                                        @endphp     
+                                    @php
+                                        $topic = json_decode($item->topics, true);
+                                        for ($i = 0; $i < count($topic); $i++) {
+                                            echo "<span class='badge badge-light-dark fs-7 fw-bold mx-2'>" . $topic[$i] . '</span>';
+                                        }
+                                    @endphp
                                 </td>
                                 <td>
-                                    <a href="#" class="text-dark  text-hover-primary d-block mb-1 fs-6">Once per <span
-                                            class="fw-bolder">{{ $item->frequency }} </span> minutes</a>
+                                    <span class="text-dark  text-hover-primary d-block mb-1 fs-6">Once per
+                                        <span class="fw-bolder">{{ $item->interval }} </span> minutes</span>
                                 </td>
                                 <td>
                                     <a href="#"
-                                        class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">{{ $item->length }}</a>
+                                        class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">{{ $item->max_length }}</a>
                                 </td>
                                 <td>
                                     @if ($item->status)
@@ -187,7 +215,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button onclick="edit_schedule('{{ $item->id }}')"
+                                    <button onclick="edit_schedule('{{ $item->id }}')" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_1"
                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                         <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                         <span class="svg-icon svg-icon-3">
@@ -204,7 +233,8 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                     </button>
-                                    <button onclick="delete_schedule('{{ $item->id }}')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                    <button onclick="delete_schedule('{{ $item->id }}')"
+                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                         <!--begin::Svg Icon | path: icons/duotone/General/Trash.svg-->
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -241,11 +271,110 @@
 @section('script')
     <script>
         $("#kt_datatable_example_1").DataTable();
-        function edit_schedule(id){
-            alert("edit "+id);
+
+
+        $("#scheduleForm").on('submit', function(e) {
+            e.preventDefault();
+            var data = $('#scheduleForm').serialize();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            id = $("#schedule_id").val();
+            $.ajax({
+                data: data,
+                url: "{{ route('create.schedules') }}",
+                type: "POST",
+                dataType: 'json',
+                success: function(data) {
+                    if (id == "") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successful',
+                            text: 'Schedule Successfully Created',
+                        })
+                    } else {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successful',
+                            text: 'Schedule Successfully Updated',
+                        })
+                    }
+
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1000);
+                },
+                error: function(data) {}
+            });
+        });
+
+        function edit_schedule(id) {
+            // Populate form fields using AJAX request
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get.schedule', '') }}/" + id, // Enclose the URL in double quotes
+                dataType: 'json', // Add a comma here
+                success: function(response) {
+                    var schedule = response.schedule;
+                    $('#schedule_id').val(schedule.id);
+                    $('#creativity').val(schedule.creativity);
+                    $('#interval').val(schedule.interval);
+                    $('#language').val(schedule.language);
+                    $('#max_length').val(schedule.max_length);
+                    $('#status').val(schedule.status);
+
+                    // Parse the JSON string into a JavaScript array
+                    var topicsArray = JSON.parse(schedule.topics);
+
+                    // Extract the values from the array of objects and join them into a string
+                    var topicsString = topicsArray.map(function(item) {
+                        return item;
+                    }).join(', ');
+
+                    $("#topics").val(topicsString);
+
+                    console.log(topicsString);
+
+                    console.log(response); // Fix the typo here (consol -> console)
+                },
+                error: function(xhr) {
+                    // Handle error
+                }
+            });
         }
-        function delete_schedule(id){
-            alert("delete "+id);
+
+        function delete_schedule(id) {
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'Delete',
+                        url: "{{ route('delete.schedule', '') }}/" +id, // Enclose the URL in double quotes
+                        dataType: 'json', // Add a comma here
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        },
+                        error: function(xhr) {
+                            // Handle error
+                        }
+                    });
+                }
+            })
         }
     </script>
 @endsection

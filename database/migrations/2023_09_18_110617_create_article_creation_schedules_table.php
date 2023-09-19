@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->json('topics');
             $table->string('language', 50)->nullable();
-            $table->integer('length')->nullable();
+            $table->integer('max_length')->nullable();
             $table->string('voice_tone', 50)->nullable();
             $table->float('creativity')->nullable();
-            $table->integer('frequency');
+            $table->integer('interval')->default(10);
             $table->integer('status')->default(0);
             $table->timestamps();
         });

@@ -11,10 +11,10 @@ class ArticleCreationSchedule extends Model
     protected $fillable = [
         'topics',
         'language',
-        'length',
+        'max_length',
         'voice_tone',
         'creativity',
-        'frequency',
+        'interval',
         'status',
     ];
 }

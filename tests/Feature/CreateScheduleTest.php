@@ -64,7 +64,7 @@ class CreateScheduleTest extends TestCase
             'length'=>200,
             'creativity'=>0.75,
             'voice_tone'=>'Proffessional',
-            'frequency'=>10,
+            'interval'=>10,
             'status'=>0,
         ];
 
@@ -83,10 +83,10 @@ class CreateScheduleTest extends TestCase
         $attributes = [
             'topics'=>'web developments, graphics design, email marketing',
             'language'=>'en-US',
-            'length'=>200,
+            'max_length'=>200,
             'creativity'=>0.75,
             'voice_tone'=>'Proffessional',
-            'frequency'=>10,
+            'interval'=>5,
             'status'=>0,
         ];
 

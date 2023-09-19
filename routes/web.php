@@ -48,6 +48,8 @@ Route::middleware(['auth', 'admin', 'page.metadata'])->prefix('admin')->group(fu
     Route::controller(ArticleCreationScheduleController::class)->group(function (){
         Route::get('article-schedules','index')->name('article.schedules'); 
         Route::post('create-schedules','store')->name('create.schedules'); 
+        Route::get('get-schedule/{articleCreationSchedule}','show')->name('get.schedule'); 
+        Route::delete('delete-schedule','destroy')->name('delete.schedule'); 
     });
 });
 
