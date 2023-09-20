@@ -358,16 +358,23 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
+
                     $.ajax({
                         type: 'Delete',
-                        url: "{{ route('delete.schedule', '') }}/" +id, // Enclose the URL in double quotes
-                        dataType: 'json', // Add a comma here
+                        url: "{{ route('delete.schedule', '') }}/" + id,
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include the CSRF token here
+                        },
                         success: function(response) {
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
                                 'success'
                             )
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000);
                         },
                         error: function(xhr) {
                             // Handle error
