@@ -20,6 +20,7 @@ License: For each use you must have a valid license purchased only from above li
         content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
@@ -102,6 +103,8 @@ License: For each use you must have a valid license purchased only from above li
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     {{-- datatable --}}
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
