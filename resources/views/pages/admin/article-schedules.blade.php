@@ -195,7 +195,7 @@
                                     @php
                                         $topic = json_decode($item->topics, true);
                                         for ($i = 0; $i < count($topic); $i++) {
-                                            echo "<span class='badge badge-light-dark fs-7 fw-bold mx-2'>" . $topic[$i] . '</span>';
+                                            echo "<span class='badge badge-light-dark fs-7 fw-bold m-2'>" . $topic[$i] . '</span>';
                                         }
                                     @endphp
                                 </td>
