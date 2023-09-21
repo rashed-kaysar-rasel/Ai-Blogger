@@ -14,6 +14,8 @@
 </div>
 <div class="type-checkboxes form-check form-check-custom form-check-solid py-2  ms-10" style="display: none;">
     <div class="mb-5 row">
+        <label class="fs-6 mb-2">Type</label>
+
         <div class="col-md-4 col-sm-6">
             <label class="p-2"><input type="checkbox" class="type-checkbox form-check-input" checked> Paragraph
             </label>

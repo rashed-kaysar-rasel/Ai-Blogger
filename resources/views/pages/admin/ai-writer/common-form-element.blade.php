@@ -1,23 +1,26 @@
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-5 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                            <span class="required">Language</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Select-->
-                                        <select name="language" data-control="select2"
-                                            data-placeholder="Select a Country..." class="form-select form-select-solid">
-                                            @foreach (get_languages() as $value => $level)
-                                                <option value="{{ $value }}" {{ 'en-US' === $value ? 'selected' : '' }}>{{ $level }}</option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::Select-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
                                     <div class="row mb-5">
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">Language</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Select-->
+                                            <select name="language" data-control="select2"
+                                                data-placeholder="Select a Country..."
+                                                class="form-select form-select-solid">
+                                                @foreach (get_languages() as $value => $level)
+                                                    <option value="{{ $value }}"
+                                                        {{ 'en-US' === $value ? 'selected' : '' }}>{{ $level }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::Select-->
+                                        </div>
+                                        <!--end::Col-->
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
@@ -30,6 +33,11 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="row mb-5">
+
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
@@ -47,12 +55,6 @@
                                             <!--end::Select-->
                                         </div>
                                         <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row g-9 mb-10">
-
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
@@ -73,18 +75,3 @@
                                         <!--end::Col-->
                                     </div>
                                     <!--end::Input group-->
-
-                                    <div class="flex-center">
-                                        <!--begin::Button-->
-                                        <button type="submit" id="kt_modal_new_address_submit" class="btn btn-primary">
-                                            <span class="indicator-label">Generate</span>
-                                            <span class="indicator-progress">Please wait...
-                                                <span
-                                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        </button>
-                                        <!--end::Button-->
-                                        <!--begin::Button-->
-                                        <button type="reset" id="kt_modal_new_address_cancel"
-                                            class="btn btn-white me-3">Discard</button>
-                                        <!--end::Button-->
-                                    </div>

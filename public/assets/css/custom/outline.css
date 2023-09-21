@@ -13,6 +13,7 @@
     /* Adjust the padding-left for spacing */
     position: relative;
     /* Set position to relative for pseudo-element */
+    cursor: grab;
 }
 
 #sortable li:before {
@@ -23,8 +24,9 @@
     width: 20px;
     height: 20px;
     position: absolute;
+    cursor: grab;
     /* Position the custom bullet */
-    top: 50%;
+    top: 20px;
     /* Vertically center the custom bullet */
     left: 0;
     /* Adjust the left position as needed */

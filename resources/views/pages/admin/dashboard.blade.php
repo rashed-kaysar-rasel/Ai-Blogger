@@ -17,67 +17,7 @@
         <!--end::Header-->
         <!--begin::Body-->
         <div class="card-body py-3">
-
-            <ul id="sortable" class="type-checkboxes form-check text-gray-700 text-large w-50">
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input" checked>
-                    <span class="list-item fs-5 fw-bold">Introduction</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input" checked>
-                    <span class="list-item fs-5 fw-bold">Importance</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input" >
-                    <span class="list-item fs-5 fw-bold">Comparison</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input">
-                    <span class="list-item fs-5 fw-bold">Pros and Cons</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input">
-                    <span class="list-item fs-5 fw-bold">Advantage</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input">
-                    <span class="list-item fs-5 fw-bold">Disadvantage</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input">
-                    <span class="list-item fs-5 fw-bold">Review</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input">
-                    <span class="list-item fs-5 fw-bold">How to Guide</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input">
-                    <span class="list-item fs-5 fw-bold">Examples</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input">
-                    <span class="list-item fs-5 fw-bold">FAQ</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-                <li class="py-3">
-                    <input type="checkbox" class="level-checkbox form-check-input" checked>
-                    <span class="list-item fs-5 fw-bold">Conclusion</span>
-                    @include('pages.includes.aditional-fields')
-                </li>
-            </ul>
-
-            {{-- <button id="generate-json">Generate JSON</button> --}}
-
+            {{-- @include('pages.includes.outline-list') --}}
         </div>
         <!--begin::Body-->
     </div>
