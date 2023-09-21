@@ -9,24 +9,27 @@ document.addEventListener("DOMContentLoaded", function () {
         var indicatorLlabel = document.querySelector(".indicator-label");
 
         indicator.style.display = "block";
-        indicatorLlabel.style.display = "none"; 
+        indicatorLlabel.style.display = "none";
 
 
-        // Get all form inputs and create an object to store their values
+        // Initialize an empty formData object
         const formData = {};
-        const formInputs = streamForm.querySelectorAll('input');
-        const formSelect = streamForm.querySelectorAll('select');
-        const formTextarea = streamForm.querySelectorAll('textarea');
 
-        formInputs.forEach(input => {
-            formData[input.name] = input.value;
+        // Select all form elements within the streamForm
+        const formElements = streamForm.querySelectorAll('input, select, textarea');
+
+        // Iterate over all form elements and add their values to formData
+        formElements.forEach(element => {
+            if (element.name) {
+                formData[element.name] = element.value;
+            }
         });
-        formSelect.forEach(select => {
-            formData[select.name] = select.value;
-        });
-        formTextarea.forEach(textarea => {
-            formData[textarea.name] = textarea.value;
-        });
+        
+        var post_type = $("#post_type").val();
+
+        if(post_type == 'article_generator' && formData['custom_outline'] == 'on'){
+            formData['outline_json'] = outlineJSONData();
+        }
 
         // Clear the streamed data container
         streamedDataDiv.innerHTML = '';
@@ -47,11 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             streamedDataDiv.innerHTML += `${data}`;
         };
-        
+
         eventSource.onerror = function (event) {
             eventSource.close();
             indicator.style.display = "none";
-            indicatorLlabel.style.display = "block"; 
+            indicatorLlabel.style.display = "block";
         };
 
 

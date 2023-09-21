@@ -21,7 +21,7 @@
                         <!--begin::Form-->
                         <form class="form" id="promtMakerForm">
                             @csrf
-                            <input name="post_type" value="{{ $post_type }}" hidden>
+                            <input name="post_type" id="post_type" value="{{ $post_type }}" hidden>
                             <!--begin::Col-->
                             <div class="d-flex flex-column mb-5 fv-row">
                                 <!--begin::Label-->
@@ -51,7 +51,7 @@
                                 <!--begin::Checkbox-->
                                 <label class="form-check form-check-custom form-check-solid me-10">
                                     <input class="form-check-input h-20px w-20px" type="checkbox" name="custom_outline"
-                                        id="custom_outline" value="on" />
+                                        id="custom_outline" value="off"/>
                                     <span class="form-check-label fs-5 fw-bold">Custom Outline</span>
                                 </label>
                                 <!--end::Checkbox-->
@@ -102,8 +102,10 @@
         $("#custom_outline").on('change',function(){
             if(this.checked){
                 $("#article-outline").removeAttr('hidden');
+                $("#custom_outline").val('on');
             }else{
                 $("#article-outline").prop('hidden',true);
+                $("#custom_outline").val('off');
             }
         });
     </script>

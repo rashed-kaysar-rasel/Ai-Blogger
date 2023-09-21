@@ -67,7 +67,7 @@ function outlineJSONData() {
 
     // Convert JSON data to a string for display
     var jsonString = JSON.stringify(jsonData, null, 2);
-    console.log(jsonString);
+    // console.log(jsonString);
     // alert("JSON Data:\n\n" + jsonString);
     return jsonString;
 }

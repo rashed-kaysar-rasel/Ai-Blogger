@@ -34,6 +34,32 @@ class AIController extends Controller
         }
     }
 
+    public function getArticlePrompt($outline, $prompt)
+    {
+        $outline = json_decode($outline);
+
+        foreach ($outline as $items) {
+
+            if ($items->level == 1) {
+                $prompt .= "$items->item (max $items->maxLength words): ";
+                if ($items->keywords) {
+                    $prompt .= "Please focus on the keywords $items->keywords. ";
+                }
+                $prompt .= "Explain $items->item in " . count($items->types) . " formats - ";
+
+                foreach ($items->types as $type) {
+                    $prompt .= $type . ", ";
+                }
+
+                $prompt = rtrim($prompt, ", ");
+                $prompt .= ".\n";
+            }
+
+        }
+
+        return $prompt;
+    }
+
     public function streamTextOutput(Request $request)
     {
 
@@ -49,15 +75,19 @@ class AIController extends Controller
         if ($post_type == 'article_generator') {
             $article_title = $request->article_title;
             $focus_keywords = $request->focus_keywords;
-            $prompt = "Generate article about $article_title. Focus on $focus_keywords.
-                     Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Tone of voice must be $tone_of_voice";
+
+            $prompt = "Generate a $tone_of_voice article in $language (max $maximum_length words) on the $article_title focusing on the keywords $focus_keywords with a creativity factor of $creativity.\n";
+
+            if (isset($request->outline_json)) {
+                $prompt = $this->getArticlePrompt($request->outline_json, $prompt);
+            }
         }
 
         //POST TITLE GENERATOR
         if ($post_type == 'post_title_generator') {
             $description = $request->description;
             $focus_keywords = $request->focus_keywords;
-            $prompt = "Generate engaging and click-worthy post titles on $description. Also Focus on $focus_keywords. And Language is $language.";
+            $prompt = "Generate engaging and click-worthy post titles on '$description'. Also Focus on $focus_keywords. And Language is $language.";
         }
 
         // EMAIL GENERATOR
@@ -72,16 +102,8 @@ class AIController extends Controller
                     Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Tone of voice must be $tone_of_voice. Also focus on the key words $focus_keywords;
                     ";
         }
-
-
-        // $result = OpenAI::completions()->create([
-        //     'model' => 'text-davinci-003',
-        //     'prompt' => $prompt,
-        //     'temperature' => (int)$creativity,
-        //     'max_tokens' => (int)$maximum_length,
-        //     'n' => (int)$number_of_results
-        // ]);
-
+        echo json_encode($prompt);
+        exit;
 
         $response = new StreamedResponse(function () use ($prompt, $creativity, $maximum_length) {
 
@@ -108,6 +130,7 @@ class AIController extends Controller
                 flush();
                 usleep(50000);
             }
+
             foreach ($stream as $streamResponse) {
 
                 if (isset($streamResponse->choices[0]->text)) {
@@ -133,7 +156,6 @@ class AIController extends Controller
         $response->headers->set('Content-Type', 'text/event-stream');
         $response->headers->set('Cache-Control', 'no-cache');
         $response->headers->set('Connection', 'keep-alive');
-        // $response->headers->set('X-Accel-Buffering', 'no');
 
         return $response;
     }
