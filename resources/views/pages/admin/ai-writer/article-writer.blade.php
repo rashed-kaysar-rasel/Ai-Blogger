@@ -93,7 +93,7 @@
 @section('script')
     {{-- outline js --}}
     <script src="{{ asset('assets/js/custom/outline.js') }}"></script>
-    
+
     <!-- JavaScript to handle form submission and streaming -->
     <script src="{{ asset('assets/js/admin/streamtext.js') }}"></script>
 
@@ -103,7 +103,7 @@
             if(this.checked){
                 $("#article-outline").removeAttr('hidden');
             }else{
-                $("#article-outline").prop('hidden',tru);
+                $("#article-outline").prop('hidden',true);
             }
         });
     </script>
