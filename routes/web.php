@@ -7,6 +7,7 @@ use App\Http\Controllers\AIWriterController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ArticleCreationScheduleController;
 use App\Http\Controllers\Admin\OpenAiSettingController;
+use App\Http\Controllers\UserArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,5 +54,10 @@ Route::middleware(['auth', 'admin', 'page.metadata'])->prefix('admin')->group(fu
     });
 });
 
+Route::middleware(['auth', 'page.metadata'])->prefix('admin')->group(function () {
+    Route::controller(UserArticleController::class)->group(function (){
+        Route::post('save-article','store')->name('save.article');
+    });
+});
 
 require __DIR__.'/auth.php';

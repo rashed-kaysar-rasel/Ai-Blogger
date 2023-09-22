@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserArticle;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
 
 class UserArticleController extends Controller
 {
@@ -26,9 +28,17 @@ class UserArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        //
+        $user = User::where('id',auth()->id())->first();
+
+        $user->article()->create([
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'word_count'=>countWords($request->input('description')),
+        ]);
+
+        return response(array("error"=>0,"message"=>"article saved"),200);
     }
 
     /**

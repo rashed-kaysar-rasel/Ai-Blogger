@@ -20,6 +20,8 @@ License: For each use you must have a valid license purchased only from above li
         content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 

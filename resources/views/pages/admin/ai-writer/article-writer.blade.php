@@ -94,7 +94,7 @@
                             <label class="fs-5 fw-bold mb-2">Generated Output</label>
                             <div id="output-action" hidden>
                                 <!--begin::Svg Icon | path: assets/media/icons/duotone/General/Save.svg-->
-                                <button class="btn  btn-icon btn-white" onclick="save_article()">
+                                <button id="save-article-button" class="btn btn-icon btn-white" onclick="save_article()" data-bs-toggle="tooltip" data-bs-placement="top" title="Save Article">
                                     <span class="svg-icon svg-icon-dark svg-icon-2x">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -111,7 +111,7 @@
                                 </button>
                                 <!--end::Svg Icon-->
                                 <!--begin::Svg Icon | path: assets/media/icons/duotone/General/Duplicate.svg-->
-                                <button class="btn  btn-icon btn-white">
+                                <button class="btn  btn-icon btn-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy To Clipboard">
                                     <span class="svg-icon svg-icon-dark svg-icon-2x">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                             width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -165,8 +165,30 @@
         });
 
         function save_article() {
+
             var title = $("#article_title").val();
-            var description = $("#streamedData").val();
+            var description = $("#streamedData").html();
+            // alert(title);
+            // alert(description);
+
+            $.ajax({
+                data: {title:title,description:description},
+                url: "{{ route('save.article') }}",
+                type: "POST",
+                dataType: 'json',
+                success: function(data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Arricle Successfully Saved',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    $("#save-article-button").hide()
+                },
+                error: function(data) {}
+            });
+
         }
     </script>
 @endsection

@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserOpenAi::class, 'user_id');
     }
+    public function article()
+    {
+        return $this->hasMany(UserArticle::class, 'user_id');
+    }
 }

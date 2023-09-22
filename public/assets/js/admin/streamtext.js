@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
             indicator.style.display = "none";
             indicatorLlabel.style.display = "block";
             $("#output-action").removeAttr('hidden');
+            $("#save-article-button").show()
         };
 
 
