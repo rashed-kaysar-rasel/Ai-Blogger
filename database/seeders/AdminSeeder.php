@@ -21,6 +21,6 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('45625899'),
         ]);
         $user->roles()->attach(Role::where('slug', 'admin')->first());
-        
+
     }
 }

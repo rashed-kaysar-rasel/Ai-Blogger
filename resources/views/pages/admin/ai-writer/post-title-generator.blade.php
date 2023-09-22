@@ -31,12 +31,12 @@
                             <!--begin::Col-->
                             <div class="d-flex flex-column mb-5 fv-row">
                                 <!--end::Label-->
-                                <label class="required fs-5 fw-bold mb-2">Focus Keywords (Seperate with
+                                <label class="fs-5 fw-bold mb-2">Focus Keywords (Seperate with
                                     Comma)</label>
                                 <!--end::Label-->
                                 <!--end::Input-->
                                 <input type="text" class="form-control form-control-solid"
-                                    placeholder="Focus Keywords (Seperate with Comma)" name="focus_keywords" />
+                                    placeholder="Focus Keywords" name="focus_keywords" />
                                 <!--end::Input-->
                             </div>
                             @include('pages.admin.ai-writer.common-form-element')

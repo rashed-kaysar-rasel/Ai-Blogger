@@ -59,3 +59,20 @@ function get_voice_tones(){
     
     return $voice_tones;
 }
+
+//Count Words
+function countWords($text){
+
+    $encoding = mb_detect_encoding($text);
+
+    if ($encoding === 'UTF-8') {
+        // Count Chinese words by splitting the string into individual characters
+        $words = preg_match_all('/\p{Han}|\p{L}+|\p{N}+/u', $text);
+    } else {
+        // For other languages, use str_word_count()
+        $words = str_word_count($text, 0, $encoding);
+    }
+
+    return (int)$words;
+
+}

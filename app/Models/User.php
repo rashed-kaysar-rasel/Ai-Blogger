@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_roles');
     }
+
+    public function openAi()
+    {
+        return $this->hasMany(UserOpenAi::class, 'user_id');
+    }
 }

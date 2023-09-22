@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     streamForm.addEventListener('submit', function (event) {
         event.preventDefault();
+        
+        $("#output-action").prop('hidden',true);
 
         var indicator = document.querySelector(".indicator-progress");
         var indicatorLlabel = document.querySelector(".indicator-label");
@@ -51,10 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
             streamedDataDiv.innerHTML += `${data}`;
         };
 
+        
+
         eventSource.onerror = function (event) {
             eventSource.close();
             indicator.style.display = "none";
             indicatorLlabel.style.display = "block";
+            $("#output-action").removeAttr('hidden');
         };
 
 

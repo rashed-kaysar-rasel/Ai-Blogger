@@ -13,6 +13,6 @@ class OpenAiSettingSeeder extends Seeder
      */
     public function run(): void
     {
-       OpenAiSetting::create();
+        OpenAiSetting::create();
     }
 }

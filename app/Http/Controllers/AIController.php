@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OpenAiSetting;
 use Exception;
+use App\Models\User;
+use App\Models\UserOpenAi;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\OpenAiSetting;
 use OpenAI\Laravel\Facades\OpenAI;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -37,7 +39,7 @@ class AIController extends Controller
     public function getArticlePrompt($outline, $prompt)
     {
         $outline = json_decode($outline);
-
+        $totalLength = 0;
         foreach ($outline as $items) {
 
             if ($items->level == 1) {
@@ -53,11 +55,13 @@ class AIController extends Controller
 
                 $prompt = rtrim($prompt, ", ");
                 $prompt .= ".\n";
+
+                $totalLength += $items->maxLength;
             }
 
         }
 
-        return $prompt;
+        return array("prompt"=>$prompt,"totalLength"=>$totalLength);
     }
 
     public function streamTextOutput(Request $request)
@@ -75,11 +79,15 @@ class AIController extends Controller
         if ($post_type == 'article_generator') {
             $article_title = $request->article_title;
             $focus_keywords = $request->focus_keywords;
+            $exclude_keywords = $request->exclude_keywords;
 
-            $prompt = "Generate a $tone_of_voice article in $language (max $maximum_length words) on the $article_title focusing on the keywords $focus_keywords with a creativity factor of $creativity.\n";
+            $prompt = "Generate a $tone_of_voice article in $language (max $maximum_length words) about $article_title focusing on the keywords $focus_keywords with a creativity factor of $creativity. Exclude the words $exclude_keywords.\n";
 
             if (isset($request->outline_json)) {
-                $prompt = $this->getArticlePrompt($request->outline_json, $prompt);
+                $genaretedPrompt = $this->getArticlePrompt($request->outline_json, $prompt);
+                $prompt = $genaretedPrompt['prompt'];
+
+                $maximum_length < $genaretedPrompt['totalLength'] ? $maximum_length = $genaretedPrompt['totalLength'] : $maximum_length = $maximum_length;
             }
         }
 
@@ -102,10 +110,11 @@ class AIController extends Controller
                     Maximum $maximum_length words. Creativity is $creativity between 0 and 1. Language is $language. Tone of voice must be $tone_of_voice. Also focus on the key words $focus_keywords;
                     ";
         }
-        echo json_encode($prompt);
-        exit;
+        // echo json_encode($prompt);
+        // echo json_encode($maximum_length);
+        // exit;
 
-        $response = new StreamedResponse(function () use ($prompt, $creativity, $maximum_length) {
+        $response = new StreamedResponse(function () use ($prompt, $creativity, $maximum_length, $post_type) {
 
             $total_used_tokens = 0;
             $output = "";
@@ -138,10 +147,11 @@ class AIController extends Controller
                     $messageFix = str_replace(["\r\n", "\r", "\n"], "<br/>", $message);
                     $output .= $messageFix;
                     $responsedText .= $message;
+                    $total_used_tokens += countWords($messageFix);
 
-                    $string_length = Str::length($messageFix);
-                    $needChars = 6000 - $string_length;
-                    $random_text = Str::random($needChars);
+                    // $string_length = Str::length($messageFix);
+                    // $needChars = 6000 - $string_length;
+                    // $random_text = Str::random($needChars);
 
 
                     echo 'data: ' . $messageFix . "\n\n";
@@ -150,6 +160,15 @@ class AIController extends Controller
                     usleep(500);
                 }
             }
+
+            $user = User::where('id',auth()->id())->first();
+            $user->openAi()->create([
+                "type"=> $post_type,
+                "input"=>$prompt,
+                "output"=>$output,
+                "credits"=>$total_used_tokens,
+            ]);
+            
         });
 
 
