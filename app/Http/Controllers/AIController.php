@@ -81,7 +81,7 @@ class AIController extends Controller
             $focus_keywords = $request->focus_keywords;
             $exclude_keywords = $request->exclude_keywords;
 
-            $prompt = "Generate a $tone_of_voice article in $language (max $maximum_length words) about $article_title focusing on the keywords $focus_keywords with a creativity factor of $creativity. Exclude the words $exclude_keywords. Answer should be embedded in html tags. \n";
+            $prompt = "Generate a $tone_of_voice article in $language (max $maximum_length words) about $article_title focusing on the keywords $focus_keywords with a creativity factor of $creativity. Exclude the words $exclude_keywords.\n";
 
             if (isset($request->outline_json)) {
                 $genaretedPrompt = $this->getArticlePrompt($request->outline_json, $prompt);
