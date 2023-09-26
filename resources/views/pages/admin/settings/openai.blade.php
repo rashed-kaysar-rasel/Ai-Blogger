@@ -44,7 +44,7 @@
                                                 Davinci (Expensive Capable)</option>
                                             <option value="gpt-3.5-turbo"
                                                 {{ $openAiSettings->default_model === 'gpt-3.5-turbo' ? 'selected' : '' }}>
-                                                ChatGPT (Most Expensive Fastest Most Capable)</option>
+                                                ChatGPT (3.5-turbo)</option>
                                             <option value="gpt-3.5-turbo-16k"
                                                 {{ $openAiSettings->default_model === 'gpt-3.5-turbo-16k' ? 'selected' : '' }}>
                                                 ChatGTP (3.5-turbo-16k)</option>

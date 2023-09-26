@@ -58,17 +58,16 @@ class AIController extends Controller
 
                 $totalLength += $items->maxLength;
             }
-
         }
 
-        return array("prompt"=>$prompt,"totalLength"=>$totalLength);
+        return array("prompt" => $prompt, "totalLength" => $totalLength);
     }
 
     public function streamTextOutput(Request $request)
     {
 
         $post_type = $request->post_type;
-
+        $settings = $this->settings;
         //SETTINGS
         $maximum_length = $request->maximum_length;
         $creativity = $request->creativity;
@@ -114,19 +113,28 @@ class AIController extends Controller
         // echo json_encode($maximum_length);
         // exit;
 
-        $response = new StreamedResponse(function () use ($prompt, $creativity, $maximum_length, $post_type) {
+        $response = new StreamedResponse(function () use ($prompt, $creativity, $settings, $maximum_length, $post_type) {
 
             $total_used_tokens = 0;
             $output = "";
             $responsedText = "";
 
             try {
-                $stream = OpenAI::completions()->createStreamed([
-                    'model' => 'text-davinci-003',
-                    'prompt' => $prompt,
-                    'temperature' => (int)$creativity,
-                    'max_tokens' => (int)$maximum_length,
-                ]);
+                if ($this->settings->default_model == 'gpt-3.5-turbo' || $this->settings->default_model == 'gpt-3.5-turbo-16k' || $this->settings->default_model == 'gpt-4') {
+                    $stream = OpenAI::chat()->createStreamed([
+                        'model' => 'gpt-3.5-turbo-16k',
+                        'messages' => [
+                            ['role' => 'user', 'content' => $prompt]
+                        ],
+                    ]);
+                } else {
+                    $stream2 = OpenAI::completions()->createStreamed([
+                        'model' => 'text-davinci-003',
+                        'prompt' => $prompt,
+                        'temperature' => (int)$creativity,
+                        'max_tokens' => (int)$maximum_length,
+                    ]);
+                }
             } catch (\Exception $e) {
                 $messageError = 'Error from API call. Please try again. If error persists again please contact system administrator with this message ' . $e->getMessage();
                 echo "data: $messageError";
@@ -139,31 +147,50 @@ class AIController extends Controller
                 flush();
                 usleep(50000);
             }
+            if ($this->settings->default_model == 'gpt-3.5-turbo' || $this->settings->default_model == 'gpt-3.5-turbo-16k' || $this->settings->default_model == 'gpt-4') {
+                foreach ($stream as $streamResponse) {
+                    if (isset($streamResponse['choices'][0]['delta']['content'])) {
+                        
+                        $message = $streamResponse['choices'][0]['delta']['content'];
+                        $messageFix = str_replace(["\r\n", "\r", "\n"], "<br/>", $message);
+                        $output .= $messageFix;
+                        $responsedText .= $message;
+                        $total_used_tokens += countWords($messageFix);
 
-            foreach ($stream as $streamResponse) {
+                        echo 'data: ' . $messageFix . "\n\n";
+                        ob_flush();
+                        flush();
+                        usleep(500);
+                    }
+                }
+            } else {
+                foreach ($stream2 as $streamResponse) {
 
-                if (isset($streamResponse->choices[0]->text)) {
-                    $message = $streamResponse->choices[0]->text;
-                    $messageFix = str_replace(["\r\n", "\r", "\n"], "<br/>", $message);
-                    $output .= $messageFix;
-                    $responsedText .= $message;
-                    $total_used_tokens += countWords($messageFix);
+                    if (isset($streamResponse->choices[0]->text)) {
 
-                    echo 'data: ' . $messageFix . "\n\n";
-                    ob_flush();
-                    flush();
-                    usleep(500);
+                        $message = $streamResponse->choices[0]->text;
+                        $messageFix = str_replace(["\r\n", "\r", "\n"], "<br/>", $message);
+                        $output .= $messageFix;
+                        $responsedText .= $message;
+                        $total_used_tokens += countWords($messageFix);
+
+                        echo 'data: ' . $messageFix . "\n\n";
+                        ob_flush();
+                        flush();
+                        usleep(500);
+                    }
                 }
             }
 
-            $user = User::where('id',auth()->id())->first();
+
+
+            $user = User::where('id', auth()->id())->first();
             $user->openAi()->create([
-                "type"=> $post_type,
-                "input"=>$prompt,
-                "output"=>$output,
-                "credits"=>$total_used_tokens,
+                "type" => $post_type,
+                "input" => $prompt,
+                "output" => $output,
+                "credits" => $total_used_tokens,
             ]);
-            
         });
 
 
